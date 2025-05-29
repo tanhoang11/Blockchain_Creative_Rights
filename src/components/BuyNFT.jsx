@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Web3 from "web3";
 import contractABI from "../abi/CreativeRightsNFT.json";
 
-const CONTRACT_ADDRESS = "0x3dcA48ac92CE02979685c4018a6DD787b18c2887";
+const CONTRACT_ADDRESS = "0xAf639869074F5D24eF5eCDf10fBeB63BA5A7F922";
 
 const BuyNFT = ({ wallet }) => {
   const location = useLocation();
