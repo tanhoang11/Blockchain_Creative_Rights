@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Web3 from "web3";
 import contractABI from "../abi/CreativeRightsNFT.json";
 
 const CONTRACT_ADDRESS = "0x3dcA48ac92CE02979685c4018a6DD787b18c2887";
 
 const BuyNFT = ({ wallet }) => {
+  const location = useLocation();
   const [tokenId, setTokenId] = useState("");
   const [currentOwner, setCurrentOwner] = useState("");
   const [tokenIdBuy, setTokenIdBuy] = useState("");
   const [recipient, setRecipient] = useState("");
   const [priceEth, setPriceEth] = useState("");
   const [status, setStatus] = useState("");
+
+  // Pre-fill form with data from navigation state
+  useEffect(() => {
+    if (location.state) {
+      setTokenIdBuy(location.state.tokenId || "");
+      setRecipient(location.state.recipient || wallet || "");
+    }
+  }, [location.state, wallet]);
 
   const handleCheckOwner = async () => {
     if (!tokenId) return alert("Vui lòng nhập Token ID");
@@ -54,10 +64,10 @@ const BuyNFT = ({ wallet }) => {
 
   return (
     <div className="card">
-      <h2>🎨 Quản lý NFT bản quyền</h2>
+      <h2 className="text-xl font-semibold">🎨 Quản lý NFT bản quyền</h2>
       <div className="upload-form">
         <div className="form-group">
-          <h3>🔍 Kiểm tra chủ sở hữu NFT</h3>
+          <h3 className="text-lg font-medium">🔍 Kiểm tra chủ sở hữu NFT</h3>
           <input
             type="number"
             className="input"
@@ -74,9 +84,9 @@ const BuyNFT = ({ wallet }) => {
             </p>
           )}
         </div>
-        <hr className="my-4 border-gray-200" />
+        <hr className="my-4 border-gray-700" />
         <div className="form-group">
-          <h3>💸 Chuyển nhượng quyền sở hữu</h3>
+          <h3 className="text-lg font-medium">💸 Chuyển nhượng quyền sở hữu</h3>
           <input
             type="number"
             className="input"
@@ -102,7 +112,15 @@ const BuyNFT = ({ wallet }) => {
             Thực hiện chuyển nhượng
           </button>
           {status && (
-            <p className={status.includes("thành công") ? "status-success" : status.includes("lỗi") ? "status-error" : "status-loading"}>
+            <p
+              className={
+                status.includes("thành công")
+                  ? "status-success"
+                  : status.includes("lỗi")
+                  ? "status-error"
+                  : "status-loading"
+              }
+            >
               {status.includes("Đang") && <span className="spinner"></span>}
               {status}
             </p>

@@ -40,7 +40,7 @@ const OwnershipHistory = () => {
 
   return (
     <div className="card">
-      <h2>📜 Lịch sử chuyển nhượng NFT</h2>
+      <h2 className="text-xl font-semibold">📜 Lịch sử chuyển nhượng NFT</h2>
       <div className="upload-form">
         <div className="form-group">
           <input
@@ -62,15 +62,15 @@ const OwnershipHistory = () => {
         )}
         {history.length > 0 && (
           <div className="mt-6">
-            <h3>🧾 Danh sách giao dịch:</h3>
+            <h3 className="text-lg font-medium">🧾 Danh sách giao dịch:</h3>
             <ul className="mt-4 space-y-4">
               {history.map((item, index) => (
-                <li key={index} className="border-b pb-2">
+                <li key={index} className="border-b border-gray-700 pb-2">
                   <p>
-                    <strong>Từ:</strong> <span className="text-red-600">{item.from.slice(0, 6)}...{item.from.slice(-4)}</span>
+                    <strong>Từ:</strong> <span className="text-red-400">{item.from.slice(0, 6)}...{item.from.slice(-4)}</span>
                   </p>
                   <p>
-                    <strong>Đến:</strong> <span className="text-green-600">{item.to.slice(0, 6)}...{item.to.slice(-4)}</span>
+                    <strong>Đến:</strong> <span className="text-green-400">{item.to.slice(0, 6)}...{item.to.slice(-4)}</span>
                   </p>
                   <p className="text-sm break-all">
                     <strong>TxHash:</strong> {item.txHash}

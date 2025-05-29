@@ -42,7 +42,7 @@ const ConnectWallet = ({ onWalletConnected }) => {
   return (
     <div className="flex items-center">
       {currentAccount ? (
-        <p className="status-success">
+        <p className="status-success flex items-center gap-2">
           <span className="spinner"></span>
           Ví đang dùng: {currentAccount.slice(0, 6)}...{currentAccount.slice(-4)}
         </p>

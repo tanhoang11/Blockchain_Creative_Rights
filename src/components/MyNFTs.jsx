@@ -62,6 +62,23 @@ function MyNFTs() {
     }
   };
 
+  const handleDownload = async (ipfsHash, name) => {
+    try {
+      const url = `https://ipfs.io/ipfs/${ipfsHash}`;
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = name || `NFT_${ipfsHash}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Lỗi khi tải file:", err);
+      alert("Không thể tải file từ IPFS.");
+    }
+  };
+
   return (
     <div className="card">
       <h2>📦 NFT của tôi</h2>
@@ -80,12 +97,20 @@ function MyNFTs() {
               <h3>{nft.name}</h3>
               <p className="text-sm text-gray-600">{nft.description}</p>
               <p className="text-sm">Token ID: {nft.tokenId}</p>
-              <button
-                onClick={() => handleDelete(nft.tokenId)}
-                className="button button-danger mt-4"
-              >
-                🗑️ Xoá
-              </button>
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() => handleDelete(nft.tokenId)}
+                  className="button button-danger"
+                >
+                  🗑️ Xoá
+                </button>
+                <button
+                  onClick={() => handleDownload(nft.ipfsHash, nft.name)}
+                  className="button button-secondary"
+                >
+                  📥 Tải về
+                </button>
+              </div>
             </div>
           ))}
         </div>
